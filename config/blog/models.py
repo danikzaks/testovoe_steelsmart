@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.files.base import ContentFile
+from django.utils.text import slugify
 from PIL import Image as PilImage
 import io
 from ckeditor.fields import RichTextField
@@ -8,6 +9,11 @@ from ckeditor.fields import RichTextField
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название")
     slug = models.SlugField(unique=True, verbose_name="Слаг")
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -19,21 +25,18 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
-    main_image = models.ImageField(
-        upload_to="images/", verbose_name="Основное изображение"
-    )
-    preview_image = models.ImageField(
-        upload_to="images/", null=True, blank=True, verbose_name="Изображение превью"
-    )
+    main_image = models.ImageField(upload_to="images/", verbose_name="Основное изображение")
+    preview_image = models.ImageField(upload_to="images/", null=True, blank=True, verbose_name="Изображение превью")
     summary = models.TextField(verbose_name="Аннотация")
     content = RichTextField(verbose_name="Содержимое")
-    publication_date = models.DateTimeField(
-        auto_now_add=True, verbose_name="Дата публикации"
-    )
+    publication_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата публикации")
     slug = models.SlugField(unique=True, verbose_name="Слаг")
     categories = models.ManyToManyField(Category, verbose_name="Категории")
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+
         # Resize images (сохранение изображений)
         if self.main_image:
             self.main_image = self.resize_image(self.main_image, (300, 200))
