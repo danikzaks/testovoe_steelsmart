@@ -1,1 +1,37 @@
-/.idea
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Distribution / packaging
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Poetry specific
+poetry.lock
+*.toml
+
+# Django specific
+*.log
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# Secrets
+*.env
+*.local
+
+# IDE and editor files
+.idea/
+*.swp
+*.swo
+*.DS_Store
+.vscode/
+
+# Jupyter Notebook
+.ipynb_checkpoints
