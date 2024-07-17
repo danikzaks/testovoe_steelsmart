@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+            <a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a>
+        </li>
+        {% endfor %}
+    </ol>
+</nav>
+<div class="card">
+    <img src="{{ post.main_image.url }}" class="card-img-top" alt="{{ post.title }}">
+    <div class="card-body">
+        <h1 class="card-title">{{ post.title }}</h1>
+        <p class="card-text">{{ post.summary }}</p>
+        <div class="card-text">{{ post.content|safe }}</div>
+    </div>
+</div>
+{% endblock %}
