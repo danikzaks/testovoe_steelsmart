@@ -1,5 +1,5 @@
 """
-URL configuration for config project.
+URL configuration for steelsmart project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("ckeditor/", include("ckeditor_uploader.urls")),
-    path("", include("blog.urls")),
+    path("", include("apps.blog.urls")),
 ]
 
 if settings.DEBUG:
