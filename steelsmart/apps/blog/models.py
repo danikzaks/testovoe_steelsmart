@@ -1,9 +1,10 @@
-from django.db import models
-from django.core.files.base import ContentFile
-from django.utils.text import slugify
-from PIL import Image as PilImage
 import io
+
+from PIL import Image as PilImage
 from ckeditor.fields import RichTextField
+from django.core.files.base import ContentFile
+from django.db import models
+from django.utils.text import slugify
 
 
 class Category(models.Model):
